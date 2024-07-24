@@ -1,0 +1,37 @@
+jawaban nomor 1:
+=> CREATE TABLE `users` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+);
+jawaban nomor 2:
+=> CREATE TABLE `courses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `course` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mentor` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fee` decimal(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+);
+jawaban nomor 3:
+=> CREATE TABLE `userCourse` (
+  `id_user` bigint UNSIGNED NOT NULL,
+  `id_course` bigint UNSIGNED NOT NULL
+);
+jawaban nomor 4:
+=>
+jawaban nomor 5:
+=> select `users`.`username`, `courses`.`course`, `courses`.`mentor`, `courses`.`title` from `userCourse` inner join `users` on `userCourse`.`id_user` = `users`.`id` inner join `courses` on `userCourse`.`id_course` = `courses`.`id` where `courses`.`title` in ('S.Kom', 'S.T.');
+jawaban nomor 6:
+=> select `users`.`username`, `courses`.`course`, `courses`.`mentor`, `courses`.`title` from `userCourse` inner join `users` on `userCourse`.`id_user` = `users`.`id` inner join `courses` on `userCourse`.`id_course` = `courses`.`id` where `courses`.`title` in ('Dr.', 'M.T.');
+jawaban nomor 7:
+=>select `courses`.`course`, `courses`.`mentor`, `courses`.`title`, COUNT(userCourse.id_user) as participant_count from `userCourse` inner join `courses` on `userCourse`.`id_course` = `courses`.`id` group by `courses`.`course`, `courses`.`mentor`, `courses`.`title`
+jawaban nomor 8:
+select `courses`.`mentor`, COUNT(userCourse.id_user) as participant_count, SUM(courses.fee) as total_fee from `userCourse` inner join `courses` on `userCourse`.`id_course` = `courses`.`id` group by `courses`.`mentor`
